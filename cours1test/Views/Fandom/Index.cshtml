@@ -1,0 +1,40 @@
+﻿@model IEnumerable<cours1test.Models.Fandom> 
+
+<h2>Список Фандомов</h2>
+
+<table class="table">
+    @foreach (var fandom in Model)
+    {
+    <tr>
+        <td> <input type="text" asp-for="@fandom.Titile" value="@fandom.Titile"/></td>
+        <td> <input type="text" asp-for="@fandom.Author" value="@fandom.Author" /></td>
+        <td>
+            @*тут должна быть функция отобразить все фанфики*@
+            <form asp-action="OpenAll" asp-route-id="@fandom.ID" method="post">
+                <button type="submit" class="btn btn-sm">
+                    Открыть список работ
+                </button>
+            </form>
+        </td>
+        <td>
+            @*тут функция редактировать фандом*@
+            @*<form asp-action="Edit"  asp-controller="" asp-route-id="@fandom.ID">
+                <button type="submit" class="btn btn-sm">
+                        Сохранить изменения
+                </button>
+            </form>*@
+        </td>
+        <td>
+            @*тут функция удалить фандом
+
+                Сделано *@
+            <form asp-action="Delete" asp-route-id="@fandom.ID" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Удалить
+                </button> 
+            </form>
+        </td>
+    </tr>
+    }
+</table>
+<a asp-action="Create">Добавить новый фандом</a> 

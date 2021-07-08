@@ -1,0 +1,68 @@
+﻿@model cours1test.Models.Fanfic
+
+<h2>Добавить фанфик</h2>
+
+<div id="PlaceHolderHere"></div>
+
+
+<form method="post" asp-controller="Fanfic" asp-action="EditFanfic">
+
+    <div>
+        <label asp-for="Title">Название Фанфика</label><br />
+        <input type="text" asp-for="Title" />
+    </div>
+
+    <div>
+        <label asp-for="Description">Краткое описание фанфика</label><br />
+        <input type="text" asp-for="Description" />
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Выберите фандом:
+        </label>
+
+        <div class="col-md-10">
+            @*@Html.DropDownListFor(model => model.Fandom, ViewBag.FandomList as SelectList, "-- Select Fandom --")*@
+        </div>
+    </div>
+
+
+
+
+
+    <div>
+        <input type="submit" value="Сохранить изменения" />
+    </div>
+
+
+</form>
+
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model)
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

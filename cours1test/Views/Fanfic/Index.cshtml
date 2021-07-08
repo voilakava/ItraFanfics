@@ -1,0 +1,98 @@
+﻿@model cours1test.ViewModels.AddFanficModel
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<h2>Добавить фанфик</h2>
+
+<div id="PlaceHolderHere"></div>
+
+<button type="button" class="btn btn-primary" data-toggle="ajax-model"
+        data-target="#addChapter" data-url="@Url.Action("AddChapter")">
+    Создать главу
+</button>
+
+<form method="post" asp-controller="Fanfic" asp-action="Create">
+
+    <div>
+        <label asp-for="Title">Название Фанфика</label><br />
+        <input type="text" asp-for="Title" />
+    </div>
+    <div>
+        <label asp-for="Description">Краткое описание фанфика</label><br />
+        <input type="text" asp-for="Description" />
+    </div>
+
+    <label for="fandom">Выберите фандом:</label>
+    <select id="fandoms">
+        @*@ foreach (var )
+            <option value=""
+
+        </select>*@
+
+        @*@foreach (var c in Model.Chapters)
+                         {
+             <tr>
+                 <td>@c.CName</td>
+                 <td>
+                     <form asp-action="Edit" asp-route-id="@c.ID" method="post">
+                         <button type="submit" class="btn btn-sm btn-danger">
+                             Удалить
+                         </button>
+                     </form>
+                 </td>
+             </tr>
+                  <div id="PlaceHolderHere"></div>
+            }*@
+
+
+
+        <table class="table">
+            @{ try
+                {
+                    foreach (var c in Model.Chapters)
+                    {
+                        <tr>
+                            <td>@c.CName</td>
+                            <td>
+                                <form asp-action="AddChapter" asp-route-id="@c.ID" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Удалить
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("dfgfdgd");
+                }
+            }
+
+            <tr>
+                <td>Добавить главу</td>
+                <td>
+
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-model"
+                            data-target="#addChapter" data-url="@Url.Action("AddChapter")">
+                        Создать главу
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        @*<label>Content</label>
+                <textarea name="content" class="form-control" style="height: 300px;" placeholder="What would you like to write?">
+                @Model.Chapters.
+            </textarea>*@
+        <br />
+
+
+        <div>
+            <input type="submit" value="Отправить" />
+        </div>
+
+    </form>

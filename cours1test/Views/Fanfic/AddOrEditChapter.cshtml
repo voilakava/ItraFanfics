@@ -1,0 +1,76 @@
+﻿@model cours1test.Models.Chapter
+
+@{ Layout = null; }
+
+
+<h2>Добавить Главу</h2>
+
+ 
+
+
+<div class="row">
+    <div class="col-md-12"> 
+        <form method="post" asp-controller="Fanfic" asp-action="AddOrEditChapter">
+            @*asp-route-id="@Model.ID"*@
+            @*onsubmit="return jQueryAjaxPost(this);"*@
+
+            <!--<div class="form-group">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>-->
+            @*<input type="hidden" asp-for="ID" />*@
+
+            <!--<label asp-for="ID" class="control-label"></label>
+        <input asp-for="ID" class="form-control" />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>
+    <div class="row">
+
+        <div class="form-group">
+            <label asp-for="CName" class="control-label"></label>
+            <input asp-for="CName" class="form-control" />
+            <span asp-validation-for="CName" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="CText" class="control-label"></label>
+            <input asp-for="CText" class="form-control" />
+            <span asp-validation-for="CText" class="text-danger"></span>
+        </div>
+    </div>-->
+            @*тут новое с бутстрапом“*@
+            <!--<div class="mb-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>-->
+            @*<input type="hidden" asp-for="ID" />*@
+
+            <!--<label asp-for="ID" class="control-label"></label>
+        <input asp-for="ID" class="form-control" />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>-->
+
+            <div class="mb-3"> 
+                <label asp-for="CName" class="control-label">Название главы</label>
+                <input asp-for="CName" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <!--<label asp-for="CText" class="control-label">Текст главы</label>-->
+                @*<input asp-for="CText" class="form-control" />*@
+                <!--<textarea class="form-control" asp-validation-for="CText" rows="20"></textarea>-->
+
+                @Html.TextAreaFor(model => model.CText, new { @class = "form-control", @rows = 20 })
+            </div>
+            <div class="mb-3"> 
+                <label asp-for="RangeId" class="control-label">Порядковый № главы</label>
+                <input asp-for="RangeId" value="@Model.RangeId" />
+            </div>
+
+            
+            <input asp-for="FanficId" value="@Model.FanficId" />
+            <div class="mb-3" >
+                <input type="submit" value="Сохранить" class="btn btn btn-primary mb-3" />
+
+            </div>
+        </form>
+    </div>
+</div>

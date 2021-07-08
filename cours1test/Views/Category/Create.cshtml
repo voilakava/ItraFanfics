@@ -1,0 +1,19 @@
+﻿@*@model cours1test.Models.Fandom*@
+
+@model cours1test.ViewModels.AddCategoryModel
+
+<h2>Добавить фандом</h2>
+
+<form method="post" asp-controller="Category" asp-action="Create">
+    <div>
+        <label asp-for="Name">Название Категории</label><br />
+        <input type="text" asp-for="Name" />
+    </div>
+     
+
+
+
+    <div>
+        <input type="submit" value="Отправить" />
+    </div>
+</form>

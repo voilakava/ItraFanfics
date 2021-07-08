@@ -1,0 +1,45 @@
+﻿@model cours1test.Models.Fanfic
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">  
+        <title>Чтение фанфика</title> 
+    </head>
+    <body>
+        <div class="container">
+            <h1>@Model.Title</h1>
+
+            @*<a class="nav-link font-italic" asp-controller="Fanfiction" asp-action="Books" asp-route-id="@Model.Fandom.ID">@Model.Fandom.Titile</a>*@
+
+            @if (User.IsInRole("admin"))
+            {
+                <a class="btn btn-primary" asp-controller="Fanfic" asp-action="EditFanfic" asp-route-id="@Model.ID" role="button">Редактировать фанфик</a>
+
+            }
+            <h3>Размер фанфика:</h3>
+            <p>Главы: @Model.Chapters.Count()</p>
+            <h3>Описание:</h3>
+            <p>@Model.Description</p>
+            @{
+                if (Model.Chapters != null)
+                {
+                    foreach (Chapter chapter in Model.Chapters)
+                    {
+                        <h2>@chapter.CName</h2>
+                        <span class="border border-info">@chapter.CText</span>
+                    }
+
+                }
+                else
+                {
+                    <h2>Глав не найдено</h2>
+                }
+            }
+
+        </div>
+
+
+
+    </body>
+</html>

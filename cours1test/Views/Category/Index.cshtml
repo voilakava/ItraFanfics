@@ -1,0 +1,26 @@
+﻿@model IEnumerable<cours1test.Models.Category>
+
+<h2>Список ролей</h2>
+<table class="table">
+    @foreach (var category in Model)
+    {
+    <tr>
+        <td>@category.Name</td>
+        <td>
+            <form asp-action="OpenFics" asp-route-id="@category.ID" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Открыть Фанфики
+                </button>
+            </form>
+        </td>
+        <td>
+            <form asp-action="Delete" asp-route-id="@category.ID" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Удалить
+                </button>
+            </form>
+        </td>
+    </tr>
+    }
+</table>
+<a asp-action="Create">Добавить роль</a> 

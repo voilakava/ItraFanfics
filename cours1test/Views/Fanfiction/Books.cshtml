@@ -1,0 +1,19 @@
+﻿@*сюда передавать список с фанфиками по определенному*@
+
+@model cours1test.Models.Fandom
+
+<h2>"@Model.Titile"</h2>
+<h3>@Model.Author</h3>
+
+@if (Model.Fanfics.Count > 0)
+{
+    @foreach (var f in Model.Fanfics)
+    {
+
+
+    }
+}
+else
+{
+<h4>Не существует фанфиков фандома "@Model.Titile"</h4>
+}

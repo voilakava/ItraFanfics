@@ -1,0 +1,39 @@
+﻿
+@*@model cours1test.Models.Fandom*@
+
+@model cours1test.ViewModels.AddFandomModel
+
+<h2>Добавить фандом</h2>
+
+<form id="CreateFanficForm" method="post" asp-controller="Fandom" asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Titile"></label>
+        <input asp-for="Titile" class="form-control" required />
+        <span asp-validation-for="Titile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Author"></label>
+        <input asp-for="Author" class="form-control" required />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    @*<div>
+            <label asp-for="Title">Название фандома</label><br />
+            <input type="text" asp-for="Title" />
+        </div>*@
+
+    @*<div>
+        <label asp-for="Author">Автор</label><br />
+        <input type="text" asp-for="Author" />
+    </div>*@
+
+    <div>
+        <input type="submit" value="Отправить" />
+    </div>
+</form>
+
+
+
+
+
