@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fwDcFKt7qBmLBVQF2ZTali6/0xnJ8QTFL+2JsyVrUP0CGT3uD4Z1zO6V2Gb0KSezAvVkI2pEohMNQqdUAPk+/w==",
+  "dgSpecHash": "wC7zKOmzfQjxydCPM5Xt1ae46BW+4lOJ+0WR3Ll3UXL3wnw7WSkEyZOV/MwLPrphaKfF9fIgAThX7PzPk4YbWw==",
   "success": true,
-  "projectFilePath": "/Users/natavoylokova/Desktop/itra/cours1test/cours1test.csproj",
+  "projectFilePath": "/Users/natavoylokova/Desktop/itra/ItraFanfics/cours1test/cours1test.csproj",
   "expectedPackageFiles": [
     "/Users/natavoylokova/.nuget/packages/bootstrap/5.0.2/bootstrap.5.0.2.nupkg.sha512",
     "/Users/natavoylokova/.nuget/packages/bootstrap.chosen/1.0.0/bootstrap.chosen.1.0.0.nupkg.sha512",

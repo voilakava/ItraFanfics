@@ -6,7 +6,7 @@ namespace cours1test.Models
 {
     public class User: IdentityUser
     {
-        //public ICollection<Fanfic> Fanfics { get; set; }
+        public ICollection<Fanfic> Fanfics { get; set; }
 
     }
 }

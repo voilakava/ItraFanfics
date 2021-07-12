@@ -6567,11 +6567,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/natavoylokova/Desktop/itra/cours1test/cours1test.csproj",
+      "projectUniqueName": "/Users/natavoylokova/Desktop/itra/ItraFanfics/cours1test/cours1test.csproj",
       "projectName": "cours1test",
-      "projectPath": "/Users/natavoylokova/Desktop/itra/cours1test/cours1test.csproj",
+      "projectPath": "/Users/natavoylokova/Desktop/itra/ItraFanfics/cours1test/cours1test.csproj",
       "packagesPath": "/Users/natavoylokova/.nuget/packages/",
-      "outputPath": "/Users/natavoylokova/Desktop/itra/cours1test/obj/",
+      "outputPath": "/Users/natavoylokova/Desktop/itra/ItraFanfics/cours1test/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/natavoylokova/.config/NuGet/NuGet.Config"

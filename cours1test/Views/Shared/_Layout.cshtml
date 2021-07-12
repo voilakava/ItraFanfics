@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">cours1test</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Книга фанфиков</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,11 +20,8 @@
 
 
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
                         @if (!User.Identity.IsAuthenticated)
-                        { 
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
@@ -45,6 +42,15 @@
                             </li>
                             <li>
                                 <p>@User.Identity.Name</p>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fanfiction" asp-action="MyProfile">Мой профиль</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fanfiction" asp-action="MyBookmarks">Мое избранное</a>
+
                             </li>
 
                         }
@@ -69,6 +75,11 @@
                     </ul>
                 </div>
             </div>
+            <br />
+            @using (Html.BeginForm("SearchPage", "Home", FormMethod.Get))
+            {
+                @Html.TextBox("searching")<input type="submit" value="Найти" />
+            }
         </nav>
     </header>
     <div class="container">
@@ -82,6 +93,8 @@
             &copy; 2021 - cours1test - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,18 +1,21 @@
-﻿//using System;
-//namespace cours1test.Models
-//{
-//    public class Comment
-//    {
+﻿using System;
+namespace cours1test.Models
+{
+    public class Comment
+    {
 
-//        public int ID { get; set; }
+        public int ID { get; set; }
 
-//        public string UserId { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
 
-//        public string Content { get; set; }
+        public string Content { get; set; }
 
-//        public DateTime PublishTime { get; set; }
+        public DateTime PublishTime { get; set; }
+
+        public int FanficId { get; set; }
 
 
-         
-//    }
-//}
+
+    }
+}

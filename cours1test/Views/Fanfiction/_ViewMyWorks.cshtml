@@ -1,0 +1,66 @@
+﻿@*@model IEnumerable<cours1test.Models.Chapter>*@
+@model cours1test.Models.User
+
+<div class="col-md-8 offset-md-2">
+
+    <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Добавление Главы</h1>
+
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th> 
+                    <a>Название фанфика</a>
+                </th>
+                <th> 
+                    <a>Текст описание</a>
+                </th>
+                <th>
+                    <a>Количество лайков</a>
+                </th>
+                <th>
+                    <a>Количество комментариев</a>
+                </th>
+
+                <th>
+                    <a asp-controller="Fanfic" asp-action="Create" class="btn btn-success text-white"><i class="fas fa-random"></i>Создать новый фанфик</a>
+                </th>
+            </tr>
+        </thead>
+        @if (Model.Fanfics != null)
+        {
+            <tbody>
+
+                @foreach (var fanfic in Model.Fanfics)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => fanfic.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fanfic.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fanfic.Likes.Count())
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fanfic.Comments.Count())
+                    </td> 
+                    <td>
+                        <div>
+                            <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Редакттировать </a>
+                            <form asp-action="DeleteFanfic" asp-controller="Fanfic" asp-route-id="@fanfic.ID" class="d-inline">
+                                <input type="hidden" asp-for="@fanfic.ID" />
+                                <input type="submit" value="Удалить" class="btn btn-danger" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                }
+
+
+            </tbody>
+        }
+    </table>
+</div>
+

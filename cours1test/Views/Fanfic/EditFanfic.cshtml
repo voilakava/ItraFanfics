@@ -14,7 +14,9 @@
 
     <div>
         <label asp-for="Description">Краткое описание фанфика</label><br />
-        <input type="text" asp-for="Description" />
+        <div class="mb-3">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+        </div>
     </div>
 
 
@@ -24,8 +26,8 @@
             Выберите фандом:
         </label>
 
-        <div class="col-md-10">
-            @*@Html.DropDownListFor(model => model.Fandom, ViewBag.FandomList as SelectList, "-- Select Fandom --")*@
+        <div class="col-md-10"> 
+            @Html.DropDownListFor(model => model.FandomName, (IEnumerable<SelectListItem>)ViewBag.Fandom, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 

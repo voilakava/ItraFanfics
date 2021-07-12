@@ -11,6 +11,9 @@ namespace cours1test.Models
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Fandom> Fandom { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<PostLike> Likes { get; set; } 
+        public DbSet<Bookmark> Bookmarks { get; set; }
 
         //осталось продумать логику лайков и комментов
 
@@ -20,6 +23,10 @@ namespace cours1test.Models
         public FanficContextDB(DbContextOptions<FanficContextDB> options) : base(options)
         {
             Database.EnsureCreated();
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Fanfic>().ToTable("Fanfics");
         }
 
         internal object First()

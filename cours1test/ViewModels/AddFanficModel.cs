@@ -28,6 +28,7 @@ namespace cours1test.ViewModels
 
         //[Required(ErrorMessage = "Не указан фандом")]
         public Fandom Fandom { get; set; }
+        public string FandomName { get; set; }
 
         [Required(ErrorMessage = "Не указаны категории")]
         public Category Category { get; set; }

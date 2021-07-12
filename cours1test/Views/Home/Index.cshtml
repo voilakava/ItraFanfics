@@ -4,19 +4,44 @@
 }
 
 <div class="container">
-    @foreach(var fanfic in Model)
-     {
-        <div class="">
-            <h2>
-                <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
-            </h2>
-            @*<h3>Размер фанфика:</h3>*@
-            @*<p>@fanfic.Chapters.Count()</p>*@
-            <h4>Описание:</h4>
-            <p>@fanfic.Description</p>
+    <table class="table">
+        <tr>
+            <th>
+                Сортировка:
+            </th>
+            <th>
+                @Html.ActionLink("по названию", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("по активности", "Index", new { sortOrder = ViewBag.ActiveSortParm })
+            </th>
+        </tr>
+    </table>
 
-        </div>
-                
-     }
+
+        @foreach (var fanfic in Model)
+        {
+            <div class="">
+                <h2>
+                    <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
+                </h2>
+
+                @*@try
+                    {
+                        <p>Фандом: <a asp-action="Books" asp-controller="Fanfiction" asp-route-id="@fanfic.Fandom.ID">@fanfic.Fandom.Titile</a></p>
+
+                    }
+                    catch
+                    {
+                        <p>Нет фандома</p>
+                    }*@
+                <p>Количетво отметок Нравится : @fanfic.Likes.Count()</p>
+                <p>Комментариев : @fanfic.Comments.Count()</p>
+                <h4>Описание:</h4>
+                <p>@fanfic.Description</p>
+
+            </div>
+            <hr />
+        }
 
 </div>

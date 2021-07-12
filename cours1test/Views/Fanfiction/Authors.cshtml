@@ -1,2 +1,29 @@
 ﻿@model cours1test.Models.User
 
+@{
+    ViewData["Title"] = Model.UserName;
+}
+
+ 
+<h3>Работы автора <i>@Model.UserName</i></h3>
+
+@if (Model.Fanfics.Count > 0)
+{
+    @foreach (var fanfic in Model.Fanfics)
+    {
+        <h2>
+            <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
+        </h2>
+        <p>Количетво отметок Нравится : @fanfic.Likes.Count()</p>
+        <p>Комментариев : @fanfic.Comments.Count()</p>
+        <h4>Описание:</h4>
+        <p>@fanfic.Description</p>
+        <br />
+        <hr />
+
+    }
+}
+else
+{
+    <h4>Не существует фанфиков у автора "@Model.UserName"</h4>
+}

@@ -15,6 +15,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
+
 using static cours1test.Helper;
 
 namespace cours1test.Controllers
@@ -34,39 +35,81 @@ namespace cours1test.Controllers
             _userManager = userManager;
         }
 
-
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        public IActionResult Create()
+        internal static ICollection<PostLike> GetLikes(Fanfic f)
         {
-            var model = new AddFanficModel();
-            //var fandomList = _db.Fandoms.ToList();
-            //ViewBag.FandomList = new SelectList(_db.Fandom, "ID", "Titile", "Author");
-
-            var FandomList = new SelectList(_db.Fandom.ToList(), "ID", "Titile"); 
-            ViewData["DBMyfandom"] = FandomList;
-            //dynamic mymodel = new ExpandoObject();
-            //mymodel.Fanfic = GetFanfic();
-            //mymodel.Chapters = GetChapters();
-            return View(model);
+            throw new NotImplementedException();
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize]
+        public IActionResult Create()
+        {
+            //var model = new AddFanficModel();
+            //var fandomList = _db.Fandoms.ToList();
+            //ViewBag.FandomList = new SelectList(_db.Fandom, "ID", "Titile", "Author");
+             
+            var fandoms = _db.Fandom.ToList();
+            List<SelectListItem> stateList = new List<SelectListItem>();
+            foreach (Fandom item in fandoms)
+            {
+                stateList.Add(new SelectListItem
+                {
+                    Text = item.Titile,
+                    Value = item.ID.ToString(),
+
+                });
+            }
+            ViewBag.Fandom = stateList;
+            return View( );
+        }
+
+        [HttpGet]
+        [Authorize]
         public IActionResult EditFanfic(int Id)
         {
-            Console.WriteLine("new id request " + Id);
-            //var fanfic = new Fanfic();
-            //Chapter c = _db.Chapters.Where(c => c.ID == Id).Last();
-            Fanfic fanfic = _db.Fanfics.Where(f => f.ID == Id).First();
-            //ViewBag.FandomList = new SelectList(_db.Fandoms, "ID", "Titile");
-            var FandomList = new SelectList(_db.Fandom.ToList(), "ID", "Titile");
-            ICollection<Chapter> chapterList = _db.Chapters.Where(c => c.FanficId == Id).ToList();
-            fanfic.Chapters = chapterList;
+            var fandoms = _db.Fandom.ToList();
+            List<SelectListItem> stateList = new List<SelectListItem>();
+            foreach (Fandom item in fandoms)
+            {
+                stateList.Add(new SelectListItem
+                {
+                    Text = item.Titile,
+                    Value = item.ID.ToString(),
 
-            ViewData["DBMyfandoms"] = FandomList;
+                });
+            }
+            ViewBag.Fandom = stateList;
+            var chapters = _db.Chapters.Where(c => c.FanficId == Id).ToList();
+            Fanfic fanfic = _db.Fanfics.Where(f => f.ID == Id).First();
+            fanfic.Chapters = chapters.OrderByDescending(s => s.RangeId).ToList();
 
             return View(fanfic);
+        }
+
+        [HttpPost]
+        public async Task<object> EditFanfic(Fanfic fanficModel)
+        {
+            Console.WriteLine("Fanfic Id Edit = " + fanficModel.ID);
+
+            try
+            {
+                int fandomId = Convert.ToInt32(fanficModel.FandomName);
+                fanficModel.Fandom = _db.Fandom.Where(f => f.ID == fandomId).First();
+                var fanfic = _db.Fanfics.First(f => f.ID == fanficModel.ID);
+
+                fanfic.Title = fanficModel.Title;
+                fanfic.Description = fanficModel.Description;
+                fanfic.FandomName = fanficModel.FandomName;
+                fanfic.Fandom = fanficModel.Fandom;
+                _db.SaveChanges();
+                Console.WriteLine("Сохранены изменения фанфика со старым id "+ fanficModel.ID);
+            }
+            catch
+            {
+                Console.WriteLine("Не удалось сохранить");
+            }
+
+            return RedirectToAction("Readfic", "Fanfiction", new { id = fanficModel.ID }); 
         }
 
         private Fanfic GetFanfic()
@@ -131,16 +174,19 @@ namespace cours1test.Controllers
         public async Task<IActionResult> Create(Fanfic model)
         { 
             var user = await _userManager.GetUserAsync(User);
+            Console.WriteLine("Из вью id и name" + model.Fandom + " , " + model.FandomName);
+
+
             //var userId = user.Id;
             try
             {
-
-
+                int fandomId = Convert.ToInt32(model.FandomName);
+                model.Fandom = _db.Fandom.Where(f => f.ID == fandomId).First();
                 model.AuthorId = user.Id;
             }
             catch
             {
-                Console.WriteLine("fsdfdsfdsf");
+                Console.WriteLine();
             }
             //Chapter firsrChapter = new Chapter();
             //firsrChapter.CName = "Пролог";
@@ -172,7 +218,89 @@ namespace cours1test.Controllers
             return PartialView("AddChapter", chapterModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ClickLike(int fanficId)
+        {
+            Random rand = new Random();
+            var user = await _userManager.GetUserAsync(User); 
+            PostLike like = new PostLike();
+            //like.ID = rand.Next(1000000);
+            like.UserId = user.Id;
+            like.FanficId = fanficId;
+            like.Liked = true;
+            Console.WriteLine("Сохранение в бд с id фанфика = " + fanficId);  
+            _db.Likes.Add(like);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("ReadFic", "Fanfiction", new { id = fanficId });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClickDislike(int fanficId)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            PostLike like = new PostLike();
+
+            like =  _db.Likes.Where(l => l.UserId == user.Id && l.FanficId == fanficId).First();
+            _db.Likes.Remove(like);
+            _db.SaveChanges();
+
+            return RedirectToAction("ReadFic", "Fanfiction", new { id = fanficId });
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddBookmark(int fanficId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            Bookmark bookmark = new Bookmark();
+            bookmark.UserId = user.Id;
+            bookmark.FanficId = fanficId;
+            bookmark.InBookmarks = true;
+            Console.WriteLine("Сохранение в бд закладки с id фанфика = " + fanficId);
+            _db.Bookmarks.Add(bookmark);
+            _db.SaveChanges();
+
+            return RedirectToAction("ReadFic", "Fanfiction", new { id = fanficId });
+
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> RemoveBookmark(int fanficId)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            Bookmark bookmark = new Bookmark();
+            bookmark = _db.Bookmarks.Where(l => l.UserId == user.Id && l.FanficId == fanficId).First();
+            _db.Bookmarks.Remove(bookmark);
+            _db.SaveChanges();
+
+            return RedirectToAction("ReadFic", "Fanfiction", new { id = fanficId });
+
+        }
+
         //[NoDirectAccess]
+
+
+        [HttpGet]
+        [Authorize]
+        [NoDirectAccess]
+        public IActionResult AddComment(int fanficId)
+        { 
+            Console.WriteLine("новый коммент fanficId=" + fanficId);
+            try
+            {
+                Comment commentModel = new Comment();
+                commentModel.FanficId = fanficId;
+                return View(commentModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         [HttpGet]
         [NoDirectAccess]
         public async Task<IActionResult> AddOrEditChapter(int fanficId,int id = 0 )
@@ -180,8 +308,7 @@ namespace cours1test.Controllers
             
             if (id == 0)
             {
-                Console.WriteLine("вызвался метод с id=0");
-                Console.WriteLine("новый fanficId="+ fanficId);
+                
                 var chapterModel = new Chapter(); 
                 chapterModel.FanficId = fanficId;
                 chapterModel.RangeId = _db.Chapters.Where(c => c.FanficId == fanficId).Count() + 1;
@@ -200,77 +327,74 @@ namespace cours1test.Controllers
             }
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddOrEditChapter(int? Id)
-        //{
-        //    if (Id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var model = await _db.Chapters.FindAsync(Id);
-        //    if (model == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddOrEditChapter(int? Id, Chapter chapterModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Console.WriteLine("ModelState.IsValid = true");
-        //        //Insert
-        //        if (Id == 0)
-        //        {
-        //            Console.WriteLine("Попытался сохранить в базу при id == 0");
-        //            _db.Add(chapterModel);
-        //            await _db.SaveChangesAsync();
-
-        //        }
-        //        //Update
-        //        else
-        //        {
-        //            Console.WriteLine("Попытался сохранить в базу при id != 0");
-        //            try
-        //            {
-
-        //                _db.Update(chapterModel);
-        //                await _db.SaveChangesAsync();
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                Console.WriteLine("сработал какой то кэтч сука");
-        //                if (!TransactionModelExists(chapterModel.ID))
-        //                { return NotFound(); }
-        //                else
-        //                { throw; }
-        //            }
-        //        }
-        //        return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewAll", _db.Chapters.ToList()) });
-        //    } 
-
-        //    return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddOrEditChapter", chapterModel) });
-        //}
+         
 
         [HttpPost]
         public async Task<IActionResult> AddOrEditChapter(Chapter chapterModel)
         {
-            Console.WriteLine("Попытался сохранить в базу при id == 0");
+
+            //if (chapterModel.ID != null)
+            //{
+                try
+                {
+                    var chapter = _db.Chapters.First(c => c.ID == chapterModel.ID);
+                    chapter.CText = chapterModel.CText;
+                    chapter.CName = chapterModel.CName;
+                    chapter.RangeId = chapterModel.RangeId;
+                    _db.SaveChanges();
+                    Console.WriteLine("Сохранила изменения в бд с chapterID = " + chapterModel.ID);
+
+                }
+                catch
+                {
+                    Console.WriteLine("Сохранила новую главу?Й?Й " + chapterModel.ID);
+
+                    _db.Chapters.Add(chapterModel);
+                    await _db.SaveChangesAsync();
+                }
+                
+                
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Сохранила новую главу?Й?Й " + chapterModel.ID);
+
+            //    _db.Chapters.Add(chapterModel);
+            //    await _db.SaveChangesAsync();
+            //}
+            
+
 
             Console.WriteLine("Должен сохранить FanficId из модели = "+ chapterModel.FanficId);
 
-            _db.Chapters.Add(chapterModel);
+            
             //Fanfic fanfic =_db.Fanfics.Where(f => f.ID == chapterModel.FanficId).First();
             //fanfic.Chapters.Add(chapterModel);
-            await _db.SaveChangesAsync(); 
+            
             return RedirectToAction("EditFanfic", new { id = chapterModel.FanficId });
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddComment(Comment commentModel)
+        {
+            Console.WriteLine("новый коммент fanficId=" + commentModel.FanficId);
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                commentModel.UserId = user.Id;
+                commentModel.UserName = user.UserName;
+                _db.Comments.Add(commentModel);
+                //Fanfic fanfic =_db.Fanfics.Where(f => f.ID == chapterModel.FanficId).First();
+                //fanfic.Chapters.Add(chapterModel);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("ReadFic", "Fanfiction", new { id = commentModel.FanficId });
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
         private bool TransactionModelExists(object transactionId)
         {
             throw new NotImplementedException();
@@ -296,7 +420,40 @@ namespace cours1test.Controllers
 
 
         }
-         
+
+        public async Task<IActionResult> DeleteFanfic(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var fanficModel = await _db.Fanfics
+                .FirstOrDefaultAsync(m => m.ID == Id);
+            var bookmarks = _db.Bookmarks.Where(b => b.FanficId == Id).ToList();
+            foreach(var b in bookmarks)
+            {
+                _db.Bookmarks.Remove(b);
+            }
+
+            var likes = _db.Likes.Where(b => b.FanficId == Id).ToList();
+            foreach (var l in likes)
+            {
+                _db.Likes.Remove(l);
+            } 
+            
+
+            if (fanficModel == null)
+            {
+                return NotFound();
+            }
+            
+            _db.Fanfics.Remove(fanficModel);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("MyProfile", "Fanfiction", new { id = fanficModel.AuthorId });
+
+
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> AddChapter(Chapter chapter)

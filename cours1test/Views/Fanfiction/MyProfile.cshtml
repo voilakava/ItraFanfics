@@ -1,0 +1,103 @@
+﻿@model cours1test.Models.User
+
+
+<div class="container">
+    <h2>Мой username: <i>@Model.UserName</i></h2>
+    <h3>Email:  <i>@Model.Email</i></h3>
+
+
+
+
+    <div id="view-all">
+        @*@await Html.PartialAsync("_ViewMyWorks", Model)*@
+
+        <div class="col-md-8 offset-md-2">
+
+            <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Редактирование фанфиков</h1>
+
+
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            <a>Название фанфика</a>
+                        </th>
+                        <th>
+                            <a>Текст описание</a>
+                        </th>
+                        <th>
+                            <a>Количество лайков</a>
+                        </th>
+                        <th>
+                            <a>Количество комментариев</a>
+                        </th>
+
+                        <th>
+                            <a asp-controller="Fanfic" asp-action="Create" class="btn btn-success text-white"><i class="fas fa-random"></i>Создать новый фанфик</a>
+                        </th>
+                    </tr>
+                </thead>
+                @if (Model.Fanfics.Count()>0)
+                {
+                    <tbody>
+
+                        @foreach (Fanfic fanfic in Model.Fanfics)
+                        {
+                            <tr>
+                                <td> 
+                                    @Html.DisplayFor(modelItem => fanfic.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => fanfic.Description)
+                                </td>
+                                <td>
+                                    @try
+                                    {
+                                        @fanfic.Likes.Count()
+                                    }
+                                    catch
+                                    {
+                                        <i>0</i>
+                                    }
+                                </td>
+                                <td>
+                                    @try
+                                    {
+                                        @fanfic.Comments.Count()
+                                    }
+                                    catch
+                                    {
+                                        <i>0</i>
+                                    }
+                                    @*@Html.DisplayFor(modelItem => fanfic.Comments.Count())*@
+                                </td>
+                                <td>
+                                    <div>
+                                        <a class="btn btn-primary" asp-controller="Fanfic" asp-action="EditFanfic" asp-route-id="@fanfic.ID" role="button">Редактировать фанфик</a>
+                                        <br />
+                                        <br />
+                                        <form asp-action="DeleteFanfic" asp-controller="Fanfic" asp-route-id="@fanfic.ID" class="d-inline">
+                                            <input type="hidden" asp-for="@fanfic.ID" />
+                                            <input type="submit" value="Удалить" class="btn btn-danger" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                }
+            </table>
+        </div>
+
+
+    </div>
+
+    
+
+</div>
+
+    @section Scripts{
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

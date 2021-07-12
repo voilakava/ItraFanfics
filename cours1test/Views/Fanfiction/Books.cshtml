@@ -1,19 +1,39 @@
 ﻿@*сюда передавать список с фанфиками по определенному*@
 
 @model cours1test.Models.Fandom
+@{
+    ViewData["Title"] = Model.Titile;
+}
 
 <h2>"@Model.Titile"</h2>
 <h3>@Model.Author</h3>
 
 @if (Model.Fanfics.Count > 0)
 {
-    @foreach (var f in Model.Fanfics)
+    @foreach (var fanfic in Model.Fanfics)
     {
+        <h2>
+            <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
+        </h2>
+        <p>Количетво отметок Нравится : @fanfic.Likes.Count()</p>
+        @try
+        {
+            <p>Фандом: <a asp-action="Books" asp-controller="Fanfiction" asp-route-id="@fanfic.Fandom.ID">@fanfic.Fandom.Titile</a></p>
 
+        }
+        catch
+         {
+            <p>Нет фандома</p>
+         }
+        <p>Комментариев : @fanfic.Comments.Count()</p>
+        <h4>Описание:</h4>
+        <p>@fanfic.Description</p>
+        <br />
+        <hr />
 
     }
 }
 else
 {
-<h4>Не существует фанфиков фандома "@Model.Titile"</h4>
+    <h4>Не существует фанфиков фандома "@Model.Titile"</h4>
 }

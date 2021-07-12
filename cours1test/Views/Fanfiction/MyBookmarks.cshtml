@@ -1,0 +1,26 @@
+﻿@model ICollection<cours1test.Models.Bookmark>
+
+@{
+    ViewData["Title"] = "Мои закладки";
+}
+<div class="container">
+    <h2>Мои избранные фанфики</h2>
+    <br />
+    @foreach (var b in Model)
+    {
+        <div class="">
+            <h2>
+                <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@b.Fanfic.ID">@b.Fanfic.Title</a>
+            </h2>
+            <p>Количетво отметок Нравится : @b.Fanfic.Likes.Count()</p>
+            <p>Комментариев : @b.Fanfic.Comments.Count()</p>
+            @*<h3>Размер фанфика:</h3>*@
+            @*<p>@fanfic.Chapters.Count()</p>*@
+            <h4>Описание:</h4>
+            <p>@b.Fanfic.Description</p>
+
+        </div>
+        <hr />
+    }
+
+</div>

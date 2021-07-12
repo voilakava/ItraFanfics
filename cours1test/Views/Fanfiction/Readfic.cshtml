@@ -1,45 +1,148 @@
 ﻿@model cours1test.Models.Fanfic
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">  
-        <title>Чтение фанфика</title> 
-    </head>
-    <body>
-        <div class="container">
-            <h1>@Model.Title</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Чтение фанфика</title>
+    @*<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">*@
+    <link href="/css/all.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>@Model.Title</h1>
 
-            @*<a class="nav-link font-italic" asp-controller="Fanfiction" asp-action="Books" asp-route-id="@Model.Fandom.ID">@Model.Fandom.Titile</a>*@
+        @*<a class="nav-link font-italic" asp-controller="Fanfiction" asp-action="Books" asp-route-id="@Model.Fandom.ID">@Model.Fandom.Titile</a>*@
 
-            @if (User.IsInRole("admin"))
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" asp-controller="Fanfic" asp-action="EditFanfic" asp-route-id="@Model.ID" role="button">Редактировать фанфик</a>
+
+        }
+    <p>Автор:<a class="nav-link font-italic" asp-controller="Fanfiction" asp-action="Authors" asp-route-id="@Model.Author.Id">@Model.Author.UserName</a></p>
+
+
+        <h3>Размер фанфика:</h3>
+        <p>Главы: @Model.Chapters.Count()</p>
+        <h3>Описание:</h3>
+        <p>@Model.Description</p>
+        @*<p class="likeBtn"  @click="likeFic(@Model.ID)">
+            <i class="fas fa-thumbs-up"></i>like
+        </p>*@
+        @if (User.Identity.IsAuthenticated)
+        {
+
+
+            @if (Model.inBookmarks == false)
             {
-                <a class="btn btn-primary" asp-controller="Fanfic" asp-action="EditFanfic" asp-route-id="@Model.ID" role="button">Редактировать фанфик</a>
+                <a asp-route-fanficId="@Model.ID" asp-action="AddBookmark" asp-controller="Fanfic" class="btn btn-success text-white"><i class="far fa-bookmark"></i> Добавить в закладки</a>
 
             }
-            <h3>Размер фанфика:</h3>
-            <p>Главы: @Model.Chapters.Count()</p>
-            <h3>Описание:</h3>
-            <p>@Model.Description</p>
-            @{
-                if (Model.Chapters != null)
-                {
-                    foreach (Chapter chapter in Model.Chapters)
-                    {
-                        <h2>@chapter.CName</h2>
-                        <span class="border border-info">@chapter.CText</span>
-                    }
+            else
+            {
+                <a asp-route-fanficId="@Model.ID" asp-action="RemoveBookmark" asp-controller="Fanfic" class="btn btn-success text-white"><i class="fas fa-bookmark"></i> В закладках</a>
 
-                }
-                else
-                {
-                    <h2>Глав не найдено</h2>
-                }
             }
 
-        </div>
+            <a onclick="showInPopup('@Url.Action("AddComment","Fanfic", new  { @fanficId = Model.ID} ,Context.Request.Scheme)','Комментарий')" class="btn btn-success text-white"><i class="fas fa-random"></i>Написать комментарий</a>
+            <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+        @if (Model.isLiked == false)
+        {
+            <a class="btn btn-primary" asp-action="ClickLike" asp-controller="Fanfic" asp-route-fanficId="@Model.ID" role="button">
+
+                @try
+                {
+                    <i><i class="far fa-thumbs-up"></i> @Model.Likes.Count() Нравится</i>
+                }
+                catch
+                {
+                    <p><i class="far fa-thumbs-up"></i> 0 Нравится</p>
+                }
+
+            </a>
+        }
+        else
+        {
+
+            <a class="btn btn-primary" asp-action="ClickDislike" asp-controller="Fanfic" asp-route-fanficId="@Model.ID" role="button">
+
+                @try
+                {
+                    <i><i class="fas fa-thumbs-up"></i> @Model.Likes.Count() Нравится</i>
+                }
+                catch
+                {
+                    <p><i class="fas fa-thumbs-up"></i> 0 Нравится</p>
+                }
 
 
 
-    </body>
+            </a>
+        }
+
+        <br /><br />
+        @{
+            if (Model.Chapters != null)
+            {
+                foreach (Chapter chapter in Model.Chapters)
+                {
+                    <h2>@chapter.CName</h2>
+                    <span class="border ">@chapter.CText</span>
+                }
+
+            }
+            else
+            {
+                <h2>Глав не найдено</h2>
+            }
+        }
+
+        <br /><br />
+        <h3><i>Комментарии:</i></h3>
+        <br />
+        @{
+            if (Model.Comments != null)
+            {
+                foreach (Comment comment in Model.Comments)
+                {
+                    <h2>
+                        <a class="font-weight-bold" asp-action="Authors" asp-controller="Fanfiction" asp-route-id="@comment.UserId">@comment.UserName</a>
+
+                    </h2>
+                    <span class="border ">@comment.Content</span>
+                }
+
+            }
+            else
+            {
+                <h2>Пока нет комментариев</h2>
+            }
+        }
+    </div>
+
+
+
+</body>
 </html>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

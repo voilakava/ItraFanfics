@@ -9,12 +9,10 @@
         <td> <input type="text" asp-for="@fandom.Titile" value="@fandom.Titile"/></td>
         <td> <input type="text" asp-for="@fandom.Author" value="@fandom.Author" /></td>
         <td>
-            @*тут должна быть функция отобразить все фанфики*@
-            <form asp-action="OpenAll" asp-route-id="@fandom.ID" method="post">
-                <button type="submit" class="btn btn-sm">
+            @*тут должна быть функция отобразить все фанфики*@ 
+                <a asp-controller="Fanfiction" asp-route-id="@fandom.ID" asp-action="Books" class="btn btn-sm">
                     Открыть список работ
-                </button>
-            </form>
+                </a> 
         </td>
         <td>
             @*тут функция редактировать фандом*@
