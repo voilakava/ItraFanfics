@@ -1,22 +1,19 @@
 ﻿@model cours1test.Models.User
+@{
+    ViewData["Title"] = "Мои профиль";
+}
 
-
-<div class="container">
-    <h2>Мой username: <i>@Model.UserName</i></h2>
-    <h3>Email:  <i>@Model.Email</i></h3>
-
-
-
-
+<div class="container"> 
     <div id="view-all">
         @*@await Html.PartialAsync("_ViewMyWorks", Model)*@
-
+         <h2 class="text-light">Мой username: <i>@Model.UserName</i></h2>
+            <h3 class="text-light">Email:  <i>@Model.Email</i></h3>
         <div class="col-md-8 offset-md-2">
 
-            <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Редактирование фанфиков</h1>
+            <h1 class="text-light text-center"><i class="fas fa-comments-dollar text-success"></i> Редактирование фанфиков</h1>
 
 
-            <table class="table">
+            <table class="table table-striped table-light">
                 <thead class="thead-light">
                     <tr>
                         <th>
@@ -37,15 +34,16 @@
                         </th>
                     </tr>
                 </thead>
-                @if (Model.Fanfics.Count()>0)
+                @if (Model.Fanfics.Count() > 0)
                 {
                     <tbody>
 
                         @foreach (Fanfic fanfic in Model.Fanfics)
                         {
                             <tr>
-                                <td> 
+                                <td>
                                     @Html.DisplayFor(modelItem => fanfic.Title)
+                                    @*<i asp-controller="Fanfiction" asp-action="Readfic" asp-route-id="@fanfic.ID"> @Html.DisplayFor(modelItem => fanfic.Title)</i>*@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => fanfic.Description)
@@ -76,6 +74,7 @@
                                         <a class="btn btn-primary" asp-controller="Fanfic" asp-action="EditFanfic" asp-route-id="@fanfic.ID" role="button">Редактировать фанфик</a>
                                         <br />
                                         <br />
+
                                         <form asp-action="DeleteFanfic" asp-controller="Fanfic" asp-route-id="@fanfic.ID" class="d-inline">
                                             <input type="hidden" asp-for="@fanfic.ID" />
                                             <input type="submit" value="Удалить" class="btn btn-danger" />
@@ -94,10 +93,10 @@
 
     </div>
 
-    
+
 
 </div>
 
-    @section Scripts{
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

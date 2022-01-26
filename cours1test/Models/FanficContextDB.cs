@@ -12,8 +12,12 @@ namespace cours1test.Models
         public DbSet<Fandom> Fandom { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<PostLike> Likes { get; set; } 
+        public DbSet<PostLike> Likes { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<BookChapter> bookChapter { get; set; }
+        public DbSet<BookFandom> bookFandom { get; set; }
+        public DbSet<Authorship> authorship { get; set; }
+        public DbSet<BookCategory> bookCategory { get; set; }
 
         //осталось продумать логику лайков и комментов
 
@@ -26,7 +30,7 @@ namespace cours1test.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Fanfic>().ToTable("Fanfics");
+            modelBuilder.Entity<Fanfic>().ToTable("fanfics");
         }
 
         internal object First()

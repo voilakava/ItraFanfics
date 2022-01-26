@@ -3,15 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - cours1test</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/login.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Книга фанфиков</a>
+                @using (Html.BeginForm("SearchPage", "Home", FormMethod.Get))
+                {
+
+                    @Html.TextBox("searching", null, new { @class = "form-control" })
+                    <input type="submit" class="search-button" value="Найти" />
+
+                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,28 +27,23 @@
 
 
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                        </li>
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
                             </li>
                         }
 
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Fanfic" asp-action="Create">Добавить фанфик</a>
-                            </li>
-                            <li class="nav-item">
-                                <form method="post" asp-controller="Account" asp-action="Logout">
-                                    <input type="submit" value="Выход" />
-                                </form>
-                            </li>
-                            <li>
-                                <p>@User.Identity.Name</p>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fanfic" asp-action="Create">Добавить книгу</a>
                             </li>
 
                             <li class="nav-item">
@@ -52,6 +54,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Fanfiction" asp-action="MyBookmarks">Мое избранное</a>
 
                             </li>
+
 
                         }
 
@@ -71,15 +74,25 @@
                             </li>
 
                         }
-
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <input class="btn logout-btn" type="submit" value="Выход" />
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Home" asp-action="ExportExcel">
+                                    <input class="btn color_bright logout-btn" type="submit" value="Export" />
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
             <br />
-            @using (Html.BeginForm("SearchPage", "Home", FormMethod.Get))
-            {
-                @Html.TextBox("searching")<input type="submit" value="Найти" />
-            }
+
+            
         </nav>
     </header>
     <div class="container">

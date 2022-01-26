@@ -1,107 +1,76 @@
 ﻿<Properties StartupConfiguration="{C9ABA109-B49A-46BF-9E5E-A51D1DE12630}|Default">
   <MonoDevelop.Ide.ItemProperties.cours1test PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/HomeController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Fanfic/AddComment.cshtml">
     <Files>
-      <File FileName="Views/Account/Login.cshtml" Line="24" Column="11" IsPinned="True" />
-      <File FileName="Models/Chapter.cs" />
-      <File FileName="Models/Fandom.cs" />
-      <File FileName="Models/Comment.cs" />
-      <File FileName="Models/Category.cs" />
-      <File FileName="Models/PostLike.cs" Line="6" Column="1" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="81" Column="76" />
-      <File FileName="Views/Shared/_ValidationScriptsPartial.cshtml" />
-      <File FileName="Controllers/AccountController.cs" />
-      <File FileName="Controllers/CategoryController.cs" />
-      <File FileName="Controllers/HomeController.cs" Line="51" Column="14" />
-      <File FileName="Models/FanficContextDB.cs" Line="15" Column="52" />
-      <File FileName="Models/UsersContext.cs" />
-      <File FileName="Models/ErrorViewModel.cs" />
-      <File FileName="appsettings.json" />
-      <File FileName="Program.cs" />
-      <File FileName="Startup.cs" />
-      <File FileName="ViewModels/LoginModel.cs" />
-      <File FileName="ViewModels/RegisterModel.cs" />
-      <File FileName="Views/Account/Register.cshtml" />
-      <File FileName="ViewModels/ChangeRoleModel.cs" />
-      <File FileName="Views/_ViewImports.cshtml" />
-      <File FileName="Views/Roles/Create.cshtml" />
-      <File FileName="Views/Roles/UserList.cshtml" />
-      <File FileName="Views/Roles/Edit.cshtml" />
-      <File FileName="Views/Fandom/Create.cshtml" />
-      <File FileName="ViewModels/EditFandomModel.cs" />
-      <File FileName="Models/User.cs" />
-      <File FileName="Views/Category/Create.cshtml" />
-      <File FileName="ViewModels/AddCategoryModel.cs" />
-      <File FileName="Views/Fanfic/Index.cshtml" Line="56" Column="21" />
-      <File FileName="Controllers/FanficController.cs" Line="443" Column="15" />
-      <File FileName="ViewModels/AddFanficModel.cs" />
-      <File FileName="ViewModels/AddFandomModel.cs" />
-      <File FileName="Models/FanficCategoryMap.cs" Line="1" Column="1" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="88" Column="34" IsPinned="True" />
       <File FileName="Views/Fanfic/_ChapterModelPartial.cshtml" />
-      <File FileName="wwwroot/js/site.js" />
-      <File FileName="Views/Search/SearchResult.cshtml" />
-      <File FileName="Controllers/SearchController.cs" />
-      <File FileName="ViewModels/AddChapterModel.cs" />
-      <File FileName="cours1test.csproj" />
-      <File FileName="Helper.cs" />
-      <File FileName="Controllers/FanfictionController.cs" Line="106" Column="44" />
-      <File FileName="Views/Fanfiction/Authors.cshtml" Line="13" Column="6" />
-      <File FileName="Views/Fanfiction/Tags.cshtml" />
-      <File FileName="Views/Fanfic/AddComment.cshtml" Line="15" Column="13" />
-      <File FileName="Models/Bookmark.cs" Line="11" Column="24" />
-      <File FileName="Views/Fanfiction/MyBookmarks.cshtml" Line="13" Column="126" />
-      <File FileName="Views/Fandom/Index.cshtml" Line="34" Column="14" NotebookId="1" />
+      <File FileName="Views/Fanfic/_ViewAll.cshtml" />
+      <File FileName="Models/User.cs" />
+      <File FileName="Views/Fanfiction/_ViewMyWorks.cshtml" />
+      <File FileName="Views/Fanfiction/Authors.cshtml" />
+      <File FileName="Views/Fanfiction/Readfic.cshtml" />
+      <File FileName="Views/Fanfic/AddOrEditChapter.cshtml" />
+      <File FileName="Views/Account/Register.cshtml" />
+      <File FileName="wwwroot/js/animation.js" />
+      <File FileName="Views/Roles/Index.cshtml" />
+      <File FileName="Views/Roles/Edit.cshtml" />
+      <File FileName="Views/Fandom/Index.cshtml" />
+      <File FileName="Views/Fanfic/EditFanfic.cshtml" />
+      <File FileName="Views/Category/Index.cshtml" />
+      <File FileName="Views/Home/SearchPage.cshtml" />
+      <File FileName="Views/Home/Index.cshtml" />
+      <File FileName="Controllers/FanficController.cs" />
+      <File FileName="Controllers/FanfictionController.cs" />
+      <File FileName="Views/Fanfic/AddComment.cshtml" Line="25" Column="8" />
+      <File FileName="Models/Fanfic.cs" Line="10" Column="6" NotebookId="1" />
+      <File FileName="Views/Fanfic/Create.cshtml" NotebookId="1" />
+      <File FileName="Models/FanficContextDB.cs" NotebookId="1" />
+      <File FileName="Models/BookFandom.cs" NotebookId="1" />
+      <File FileName="appsettings.json" NotebookId="1" />
+      <File FileName="Models/FanficCategoryMap.cs" NotebookId="1" />
+      <File FileName="Views/Roles/Create.cshtml" NotebookId="1" />
+      <File FileName="Views/Shared/Error.cshtml" NotebookId="1" />
+      <File FileName="Views/Shared/_ValidationScriptsPartial.cshtml" NotebookId="1" />
+      <File FileName="wwwroot/css/site.css" NotebookId="1" />
       <File FileName="Controllers/RolesController.cs" NotebookId="1" />
+      <File FileName="Models/Bookmark.cs" NotebookId="1" />
+      <File FileName="Controllers/HomeController.cs" NotebookId="1" />
+      <File FileName="Views/Fanfiction/MyProfile.cshtml" NotebookId="1" />
+      <File FileName="Views/Fandom/Create.cshtml" NotebookId="1" />
       <File FileName="Views/Fandom/Edit.cshtml" NotebookId="1" />
-      <File FileName="Views/Roles/Index.cshtml" NotebookId="1" />
-      <File FileName="Views/Category/Index.cshtml" NotebookId="1" />
-      <File FileName="Controllers/FandomController.cs" NotebookId="1" />
-      <File FileName="Models/Fanfic.cs" Line="19" Column="41" NotebookId="1" />
-      <File FileName="Views/Fanfic/Create.cshtml" Line="18" Column="9" NotebookId="1" />
-      <File FileName="wwwroot/lib/jquery/dist/jquery.js" NotebookId="1" />
-      <File FileName="wwwroot/lib/jquery/dist/jquery.min.js" NotebookId="1" />
-      <File FileName="Views/Fanfic/EditFanfic.cshtml" Line="29" Column="33" NotebookId="1" />
-      <File FileName="Views/Fanfic/_ViewAll.cshtml" NotebookId="1" />
-      <File FileName="Views/Fanfiction/Readfic.cshtml" Line="106" Column="38" NotebookId="1" />
-      <File FileName="Views/Fanfiction/Books.cshtml" Line="19" Column="9" NotebookId="1" />
-      <File FileName="Views/Fanfiction/_ViewMyWorks.cshtml" NotebookId="1" />
-      <File FileName="Views/Fanfiction/MyProfile.cshtml" Line="78" Column="47" NotebookId="1" />
-      <File FileName="Views/Shared/SearchPage.cshtml" Line="6" Column="1" NotebookId="1" />
-      <File FileName="Views/Fanfic/AddOrEditChapter.cshtml" Line="71" Column="88" NotebookId="1" />
-      <File FileName="Views/Home/Index.cshtml" Line="8" Column="1" NotebookId="1" />
+      <File FileName="Models/Category.cs" NotebookId="1" />
+      <File FileName="Models/Chapter.cs" NotebookId="1" />
+      <File FileName="../../../../.nuget/packages/epplus/5.8.3/readme.txt" NotebookId="1" />
+      <File FileName="Models/Fandom.cs" NotebookId="1" />
+      <File FileName="Models/ErrorViewModel.cs" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="cours1test" expanded="True">
             <Node name="cours1test" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="HomeController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="media" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="ViewModels" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Account" expanded="True" />
+                <Node name="Category" expanded="True" />
                 <Node name="Fandom" expanded="True" />
-                <Node name="Fanfic" expanded="True" />
+                <Node name="Fanfic" expanded="True">
+                  <Node name="AddComment.cshtml" selected="True" />
+                </Node>
                 <Node name="Fanfiction" expanded="True" />
                 <Node name="Home" expanded="True" />
+                <Node name="Roles" expanded="True" />
                 <Node name="Shared" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
                 <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>
         </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State name="__root__">
-          <Node name="cours1test" expanded="True" selected="True" />
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

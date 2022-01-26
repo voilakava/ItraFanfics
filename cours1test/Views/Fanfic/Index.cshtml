@@ -1,4 +1,4 @@
-﻿@model cours1test.ViewModels.AddFanficModel
+﻿@model cours1test.Models.Fanfic
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -27,26 +27,7 @@
 
     <label for="fandom">Выберите фандом:</label>
     <select id="fandoms">
-        @*@ foreach (var )
-            <option value=""
-
-        </select>*@
-
-        @*@foreach (var c in Model.Chapters)
-                         {
-             <tr>
-                 <td>@c.CName</td>
-                 <td>
-                     <form asp-action="Edit" asp-route-id="@c.ID" method="post">
-                         <button type="submit" class="btn btn-sm btn-danger">
-                             Удалить
-                         </button>
-                     </form>
-                 </td>
-             </tr>
-                  <div id="PlaceHolderHere"></div>
-            }*@
-
+      
 
 
         <table class="table">
@@ -83,11 +64,7 @@
                 </td>
             </tr>
         </table>
-
-        @*<label>Content</label>
-                <textarea name="content" class="form-control" style="height: 300px;" placeholder="What would you like to write?">
-                @Model.Chapters.
-            </textarea>*@
+         
         <br />
 
 

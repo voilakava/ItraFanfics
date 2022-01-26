@@ -23,6 +23,13 @@
     <None Remove="Lucene.Net.Contrib" />
     <None Remove="bootstrap.chosen" />
     <None Remove="Views\Fanfiction\" />
+    <None Remove="media\" />
+    <None Remove="ExcelPackage" />
+    <None Remove="EPPlus" />
+    <None Remove="Microsoft.AspNetCore.Http.Extensions" />
+    <None Remove="Microsoft.Office.Interop.Excel" />
+    <None Remove="System.Runtime.InteropServices" />
+    <None Remove="ClosedXML" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
@@ -35,6 +42,12 @@
     <PackageReference Include="Lucene.Net.Linq" Version="3.6.0" />
     <PackageReference Include="Lucene.Net.Contrib" Version="3.0.3" />
     <PackageReference Include="bootstrap.chosen" Version="1.0.0" />
+    <PackageReference Include="ExcelPackage" Version="1.0.0" />
+    <PackageReference Include="EPPlus" Version="5.8.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -45,5 +58,6 @@
     <Folder Include="Views\Fanfic\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Fanfiction\" />
+    <Folder Include="media\" />
   </ItemGroup>
 </Project>

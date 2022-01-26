@@ -1,26 +1,41 @@
-﻿@model ICollection<cours1test.Models.Bookmark>
+﻿@model ICollection<cours1test.Models.Bookmark> 
 
-@{
-    ViewData["Title"] = "Мои закладки";
-}
-<div class="container">
-    <h2>Мои избранные фанфики</h2>
-    <br />
-    @foreach (var b in Model)
-    {
-        <div class="">
-            <h2>
-                <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@b.Fanfic.ID">@b.Fanfic.Title</a>
-            </h2>
-            <p>Количетво отметок Нравится : @b.Fanfic.Likes.Count()</p>
-            <p>Комментариев : @b.Fanfic.Comments.Count()</p>
-            @*<h3>Размер фанфика:</h3>*@
-            @*<p>@fanfic.Chapters.Count()</p>*@
-            <h4>Описание:</h4>
-            <p>@b.Fanfic.Description</p>
-
-        </div>
-        <hr />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @{
+        ViewData["Title"] = "Мои закладки";
     }
 
-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="~/js/animation.js"></script>
+
+</head>
+<body>
+
+
+    <div class="container">
+        <h2>Моё избранное</h2>
+        <br />
+        @foreach (var b in Model)
+        {
+            <div class="fanfic-name-link">
+                <h2>
+                    <a class="font-weight-bold fanfic-name-link-a" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@b.Fanfic.ID">@b.Fanfic.Title</a>
+                </h2>
+
+                <div class="likes-count"><p><i class="fas fa-thumbs-up"></i> @b.Fanfic.Likes.Count()</p></div>
+                <div class="comments-count"><p><i class="far fa-comment-alt"></i> @b.Fanfic.Comments.Count()</p></div>
+                <h4><b>Описание:</b></h4>
+                <hr />
+                <div class="fanfic-description">
+                    <p>@b.Fanfic.Description</p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</body>

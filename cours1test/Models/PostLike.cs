@@ -6,14 +6,7 @@ namespace cours1test.Models
 
         public int ID { get; set; }
         public string UserId { get; set; } 
-        public int FanficId { get; set; }
-        public bool Liked { get; set; }
-
-        //        id
-        //user_ip
-        //direction
-        //entity_id
-        //created
+        public int FanficId { get; set; }  
 
     }
 }

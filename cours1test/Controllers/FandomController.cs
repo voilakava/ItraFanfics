@@ -49,15 +49,22 @@ namespace cours1test.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Edit() => View();
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            _db.Fandom.Remove(_db.Fandom.Where(g => g.ID == id).First());
+            var fandom = _db.Fandom.Where(g => g.ID == id).First();
+            _db.Fandom.Remove(fandom);
+            var fanfics = _db.Fanfics.Where(f => f.Fandom == fandom);
+            foreach(var f in fanfics)
+            {
+                _db.Fanfics.Remove(f);
+            }
             _db.SaveChanges();
             return RedirectToAction("Index", "Fandom");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Add(AddFandomModel model)
         {
@@ -73,21 +80,7 @@ namespace cours1test.Controllers
             }
             EditFandomModel model = new EditFandomModel { Id = fd.ID, Title = fd.Titile, Author = fd.Author };
             return View(model);
-            //_db.Fandoms.Remove(_db.Fandoms.Where(g => g.ID == id).First());
-            //_db.SaveChanges()аш;
-            //return RedirectToAction("Index", "Fandom");
-
-
-            //var result = _db.Fandoms.Where(f => f.ID == model.ID).FirstOrDefault();
-            //if (result != null)
-            //{
-            //    result.Titile = model.Titile;
-            //    result.Author = model.Author;
-
-            //    _db.SaveChanges();
-            //    return View(model);
-            //}
-            //return NotFound();
+           
         }
 
         [HttpGet]
@@ -111,24 +104,7 @@ namespace cours1test.Controllers
             else return Content("ERROR");
         }
 
-
-        //похожий код для изменения коллекции
-
-        //[HttpGet]
-        //public IActionResult EditGame(int id)
-        //{
-        //    Game game = _db.Games.Find(id);
-        //    if (game == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    EditGameViewModel model = new EditGameViewModel { Name = game.Name, Genre = game.Genre, Publisher = game.Publisher, Price = game.Price };
-        //    return View(model);
-        //}
-
-
-        //тут отображать надо придумать КАК все фанфики данного фандома
+         
 
         private bool CheckFD(Fandom model)
         {
@@ -136,27 +112,7 @@ namespace cours1test.Controllers
             if (result.Count > 0) return true;
             else return false;
         }
-
-        //public async Task<IActionResult> Edit(string title, string author) { }
-
-
-        //private List<Fandom> _libraryList => _db.Fanfics.Where(l => l.Fandom == CurrentUser.Id).ToList();
-
-        //private List<Fandom> _fandomFanficList
-        //{
-        //    get
-        //    {
-        //        try
-        //        {
-        //            return JsonSerializer.Deserialize<List<Fandom>>(_libraryList.Last().GamesID);
-        //        }
-        //        catch
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
-
+         
 
     }
 }

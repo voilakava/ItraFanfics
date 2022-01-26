@@ -60,33 +60,6 @@ namespace cours1test.Controllers
             else return Content("ERROR");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> OpenFics()
-        //{
-        //    if (!CheckFD(model))
-        //    {
-        //        _db.Categories.Add(model);
-        //        await _db.SaveChangesAsync();
-        //        return RedirectToAction("Index", "Category");
-        //    }
-        //    else return Content("ERROR");
-        //}
-
-
-        //похожий код для изменения коллекции
-
-        //[HttpGet]
-        //public IActionResult EditGame(int id)
-        //{
-        //    Game game = _db.Games.Find(id);
-        //    if (game == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    EditGameViewModel model = new EditGameViewModel { Name = game.Name, Genre = game.Genre, Publisher = game.Publisher, Price = game.Price };
-        //    return View(model);
-        //}
 
 
         private bool CheckFD(Category model)

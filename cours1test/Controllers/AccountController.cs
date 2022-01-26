@@ -78,8 +78,7 @@ namespace cours1test.Controllers
                 User user = new User { Email = model.Email, UserName = model.UserName };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
-                //при успешном добавлении юзера он перенаправляет на индекс
-                if (result.Succeeded)
+                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");

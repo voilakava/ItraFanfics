@@ -1,13 +1,13 @@
 ﻿@*@model IEnumerable<cours1test.Models.Chapter>*@
 @model cours1test.Models.Fanfic
-
+ 
 <div class="col-md-8 offset-md-2">
 
-    <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Добавление Главы</h1>
+    <h1 class="text-center text-light"><i class="fas fa-comments-dollar text-success"></i> Добавление Главы</h1>
 
 
-    <table class="table">
-        <thead class="thead-light">
+    <table class="table table-striped table-light">
+        <thead class="thead-light thead-light">
             <tr>
                 <th>
                     @*@Html.DisplayNameFor(model => model.ID)*@
@@ -18,17 +18,18 @@
                     <a>Название</a>
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.CText)*@
+                    @*@Html.DisplayNameFor(model => model.Chapters.Cn)*@
                     <a>Текст главы</a>
                 </th>
                 <th>
-                    <a onclick="showInPopup('@Url.Action("AddOrEditChapter","Fanfic", new  { @fanficId = Model.ID} ,Context.Request.Scheme)','New Chapter')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Chapter</a>
+                    <a onclick="showInPopup('@Url.Action("AddOrEditChapter","Fanfic", new  { @fanficId = Model.ID} ,Context.Request.Scheme)','Новая глава')" class="btn btn-success text-white"><i class="fas fa-random"></i>Новая глава</a>
                 </th>
             </tr>
         </thead>
-        @if (Model.Chapters != null)
-        {
-            <tbody>
+        <tbody>
+            @if (Model.Chapters != null)
+            {
+
 
                 @foreach (var item in Model.Chapters)
                 {
@@ -44,19 +45,18 @@
                         </td>
                         <td>
                             <div>
-                                <a onclick="showInPopup('@Url.Action("AddOrEditChapter", "Fanfic", new { id = item.ID }, Context.Request.Scheme)','Update Chapter')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                <a onclick="showInPopup('@Url.Action("AddOrEditChapter", "Fanfic", new {fanficId = Model.ID, id = item.ID }, Context.Request.Scheme)','Update Chapter')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
                                 <form asp-action="DeleteChapter" asp-route-id="@item.ID" class="d-inline">
-                                    <input type="hidden" asp-for="@item.ID" />
+                                    <input type="hidden" asp-for="@item.ID" /> 
                                     <input type="submit" value="Удалить" class="btn btn-danger" />
                                 </form>
                             </div>
                         </td>
                     </tr>
                 }
-                
 
-            </tbody>
-        }
+            }
+        </tbody>
         </table>
 </div>
 

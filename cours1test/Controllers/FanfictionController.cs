@@ -24,6 +24,7 @@ namespace cours1test.Controllers
             _userManager = userManager;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Authors(string? id)
         {
@@ -33,15 +34,24 @@ namespace cours1test.Controllers
             }
             else
             {
-                var author = await _userManager.FindByIdAsync(id); 
+                var author = await _userManager.FindByIdAsync(id);
+                ICollection<Authorship> authorships = _db.authorship.Where(a => a.UsreId == id).ToList();
+
+                ICollection<Fanfic> _fanficList = Array.Empty<Fanfic>();
+                var fanficList = _fanficList.ToList();
+
+                foreach (Authorship linq in authorships)
+                {
+                    Fanfic newC = _db.Fanfics.Where(c => c.ID == linq.FanficID).First();
+                    fanficList.Add(newC);
+                }
                 if (author == null)
                 {
                     return NotFound();
-                }
+                } 
                 else
                 {
-                    ICollection<Fanfic> fanficList = _db.Fanfics.Where(c => c.AuthorId == id).ToList();
-                    author.Fanfics = fanficList;
+                    author.Fanfics = fanficList; 
                     foreach (var f in author.Fanfics)
                     {
                         f.Likes = GetLikes(f);
@@ -60,9 +70,22 @@ namespace cours1test.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
+            Console.WriteLine("My prof ID" + currentUser.Id);
+
             try
             {
-                ICollection<Fanfic> fanficList = _db.Fanfics.Where(c => c.AuthorId == currentUser.Id).ToList();
+                ICollection<Authorship> authorships = _db.authorship.Where(a => a.UsreId == currentUser.Id).ToList();
+
+                ICollection<Fanfic> _fanficList = Array.Empty<Fanfic>();
+                var fanficList = _fanficList.ToList();
+
+                foreach (Authorship linq in authorships)
+                {
+                    Fanfic newC = _db.Fanfics.Where(c => c.ID == linq.FanficID).First();
+                    fanficList.Add(newC);
+                } 
+
+
                 currentUser.Fanfics = fanficList;
                 foreach(var f in currentUser.Fanfics)
                 {
@@ -113,7 +136,7 @@ namespace cours1test.Controllers
             {
                 try
                 {
-                    var f = _db.Fanfics.Where(f => f.ID == b.FanficId).First();
+                    var f = _db.Fanfics.Where(f => f.ID == b.FanficID).First();
                     b.Fanfic = f;
                     b.Fanfic.Comments = GetComments(b.Fanfic);
                     b.Fanfic.Likes = GetLikes(b.Fanfic);
@@ -124,7 +147,7 @@ namespace cours1test.Controllers
                 }
             }
 
-            
+
             return View(bookmarks);
 
         }
@@ -134,25 +157,45 @@ namespace cours1test.Controllers
         {
             if (Id == null)
             {
+
                 return NotFound();
+
             }
             else
             {
                 Fanfic fanficModel = new Fanfic();
                 fanficModel = _db.Fanfics.Where(f => f.ID == Id).First();
-                Console.WriteLine(fanficModel.Title);
+                
                 if(fanficModel == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    ICollection<Chapter> chapterList = _db.Chapters.Where(c => c.FanficId == Id).ToList();
-                    fanficModel.Chapters = chapterList;
+                    ICollection<BookChapter> bChapList = _db.bookChapter.Where(c => c.Fanfic.ID == fanficModel.ID).ToList();
+                    Console.WriteLine("кол-во глав" + bChapList.Count());
+                    ICollection<Chapter> _chapterList = Array.Empty<Chapter>();
+                    var chapterList = _chapterList.ToList();
+
+                    foreach (BookChapter linq in bChapList) {
+                        Chapter newC = _db.Chapters.Where(c => c.ID == linq.ChapterId).First();
+                        chapterList.Add(newC);
+                    }
+
+                    try
+                    {
+                        fanficModel.Chapters = chapterList.OrderBy(s => s.RangeId).ToList();
+                    } catch { Console.WriteLine("fail find Book - Chapter"); }
+                    
                     fanficModel.isLiked = false;
                     var comments = _db.Comments.Where(c => c.FanficId == Id).ToList();
                     var user = await _userManager.GetUserAsync(User);
-                    var author = await _userManager.FindByIdAsync(fanficModel.AuthorId);
+                    var bookFandom = _db.bookFandom.FirstOrDefault(f => f.FanficID == fanficModel.ID);
+                    var fandom = _db.Fandom.Where(f => f.ID == bookFandom.FandomId);
+
+
+                    var boookAuthor =  _db.authorship.FirstOrDefault(a => a.FanficID == fanficModel.ID);
+                    var author = await _userManager.FindByIdAsync(boookAuthor.UsreId);
                     fanficModel.Author = author;
                     fanficModel.inBookmarks = false;
                     if (comments.Count() != 0)
@@ -178,12 +221,14 @@ namespace cours1test.Controllers
                     {
                         fanficModel.isLiked = false;
                     }
-                    var bookmarks = _db.Bookmarks.Where(l => l.FanficId == Id).ToList();
+
+                    var bookmarks = _db.Bookmarks.Where(l => l.FanficID == Id).ToList();
                     if (likes.Count() != 0)
                     {
                         fanficModel.Bookmarks = bookmarks;
 
                     }
+
 
                     try
                     { 
@@ -196,7 +241,12 @@ namespace cours1test.Controllers
                     {
                         fanficModel.inBookmarks = false;
                     }
-                     
+
+                    Console.WriteLine("Title " + fanficModel.Title);
+                    Console.WriteLine("ID " + fanficModel.ID);
+                    Console.WriteLine("chapter " + fanficModel.Chapters);
+                    Console.WriteLine("Description " + fanficModel.Description);
+                    Console.WriteLine("Fandom " + fanficModel.Fandom);
 
                     return View(fanficModel);
                 }
@@ -223,7 +273,16 @@ namespace cours1test.Controllers
                 }
                 else
                 {
-                    ICollection<Fanfic> fanficList = _db.Fanfics.Where(c => c.FandomName == Convert.ToString(fandomModel.ID)).ToList();
+                    ICollection<BookFandom> bookFandom = _db.bookFandom.Where(a => a.FandomId == Id).ToList();
+
+                    ICollection<Fanfic> _fanficList = Array.Empty<Fanfic>();
+                    var fanficList = _fanficList.ToList();
+
+                    foreach (BookFandom linq in bookFandom)
+                    {
+                        Fanfic newC = _db.Fanfics.Where(c => c.ID == linq.FanficID).First();
+                        fanficList.Add(newC);
+                    }
                     fandomModel.Fanfics = fanficList; 
                     foreach (var f in fandomModel.Fanfics)
                     {

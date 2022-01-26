@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<cours1test.Models.Category>
 
-<h2>Список ролей</h2>
-<table class="table">
+<h2 class="text-light">Список ролей</h2>
+<table class="table table-striped table-light">
     @foreach (var category in Model)
     {
     <tr>
@@ -23,4 +23,4 @@
     </tr>
     }
 </table>
-<a asp-action="Create">Добавить роль</a> 
+<a class="text-light" asp-action="Create">Добавить роль</a> 

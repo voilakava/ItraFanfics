@@ -48,7 +48,7 @@
         <span asp-validation-for="ID" class="text-danger"></span>
     </div>-->
 
-            <div class="mb-3"> 
+            <div class="mb-3">
                 <label asp-for="CName" class="control-label">Название главы</label>
                 <input asp-for="CName" class="form-control">
             </div>
@@ -58,17 +58,19 @@
                 @*<input asp-for="CText" class="form-control" />*@
                 <!--<textarea class="form-control" asp-validation-for="CText" rows="20"></textarea>-->
 
-                @Html.TextAreaFor(model => model.CText, new { @class = "form-control", @rows = 20 })
+                @Html.TextAreaFor(model => model.CText, new { @class = "form-control chapter-input", @rows = 20 })
             </div>
-            <div class="mb-3"> 
+            <div class="mb-3">
                 <label asp-for="RangeId" class="control-label">Порядковый № главы</label>
                 <input asp-for="RangeId" value="@Model.RangeId" />
             </div>
 
-            
-            <input asp-for="FanficId" value="@Model.FanficId" />
-            <div class="mb-3" >
-                <input type="submit" value="Сохранить" class="btn btn btn-primary mb-3" />
+
+            <input class="invisible-id" asp-for="bookChapterId" value="@Model.bookChapterId" />
+            <input class="invisible-id" asp-for="ID" value="@Model.ID" />
+            <input class="invisible-id" asp-for="FanficID" value="@Model.FanficID" />
+            <div class="mb-3">
+                <input class="save-button btn text-white" type="submit" value="Сохранить" class="btn btn btn-primary mb-3" />
 
             </div>
         </form>

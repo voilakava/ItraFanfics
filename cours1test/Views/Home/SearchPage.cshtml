@@ -1,29 +1,54 @@
-﻿@model ICollection<cours1test.Models.Fanfic>
+﻿@model ICollection<cours1test.Models.Fanfic> 
 
-@{
-    ViewData["Title"] = "Результаты поиска";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
 
-<h2>Результаты поиска</h2>
-<br />
-<br />
-
-<div class="container">
-    @foreach (var fanfic in Model)
-    {
-        <div class="">
-            <h2>
-                <a class="font-weight-bold" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
-            </h2>
-            <p>Количетво отметок Нравится : @fanfic.Likes.Count()</p>
-            <p>Комментариев : @fanfic.Comments.Count()</p>
-            @*<h3>Размер фанфика:</h3>*@
-            @*<p>@fanfic.Chapters.Count()</p>*@
-            <h4>Описание:</h4>
-            <p>@fanfic.Description</p>
-
-        </div>
-        <hr />
+    @{
+        ViewData["Title"] = "Результаты поиска";
     }
 
-</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="~/js/animation.js"></script>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="/css/all.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="container">
+        <h2 >Результаты поиска</h2>
+        <br />
+        <br />
+        @if (Model.ToList().Count() == 0)
+        {
+            <h2>Результатов не найдено</h2>
+        }
+        @foreach (var fanfic in Model)
+        {
+    <div class="fanfic-name-link">
+        <h2>
+            <a class="font-weight-bold fanfic-name-link-a" asp-action="Readfic" asp-controller="Fanfiction" asp-route-id="@fanfic.ID">@fanfic.Title</a>
+        </h2>
+        <div>
+            <div class="likes-count"><p><i class="far fa-thumbs-up"></i> @fanfic.Likes.Count()</p></div>
+            <div class="comments-count"><p><i class="far fa-comment-alt"></i> @fanfic.Comments.Count()</p></div>
+
+        </div>
+        <h4><b>Описание:</b></h4>
+        <hr />
+        <div class="fanfic-description">
+            <p>@fanfic.Description</p>
+        </div>
+
+    </div>
+        }
+
+    </div>
+
+</body>
+</html>

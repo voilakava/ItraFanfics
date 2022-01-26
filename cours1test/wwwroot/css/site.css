@@ -1,10 +1,207 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/*body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-image: linear-gradient(to right, #A0522D, #8B4513);
+    background-repeat: no-repeat
+} */
+
+
+container{
+    width:80%;
+} 
+/*для страницы чтения фанфика*/
+.readfic-info {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+}
+.comments{
+    width: 500px !important;
+}
+.author-name-link a {
+    color: #CD5C5C;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+.chapter-text {
+    font-size: 13px;
+}
+/*для создания фанфика*/
+
+.fandom-input {
+    display: inline-block;
+}
+
+/*редактирование фанфика*/
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 15px solid #F2F8F8;
+    border-top: 5px solid #F2F8F8;
+    border-collapse: collapse;
+}
+
+.tableth {
+    font-weight: bold;
+    padding: 5px;
+    background: #F2F8F8;
+    border: none;
+    border-bottom: 5px solid #F2F8F8;
+}
+
+.table td {
+    padding: 5px;
+    border: none;
+    border-bottom: 5px solid #F2F8F8;
+}
+
+/*для хэдера*/
+
+.seatch-form {
+    display: block;
+    width: 200px;
+}
+.search-button {
+    width: 100px;
+    display: block;
+}
+
+.form-control {
+    width: 200px;
+    display: inline-block;
+}
+
+.logout-btn {
+    color: #6e4058;
+}
+/*для создания главы*/
+.chapter-input {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.invisible-id {
+    visibility: hidden;
+}
+
+.save-button {
+    background: #8B4513;
+
+}
+/*для главной страницы:*/
+
+.mysort-linl {
+    color: #FFA07A;
+}
+.fanfic-name-link {
+    border-radius: 5px;
+    background: #FFFFE0;
+    border: 2px, #CD5C5C;
+    padding: 20px;
+    margin-top: 7px;
+    opacity: .7;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transition: 0.4s ease;
+    -moz-transition: 0.4s ease; /* Firefox 4 */
+    -o-transition: 0.4s ease; /* Opera */
+}
+
+.fanfic-name-link-prev {
+    position: relative;
+    z-index: -1;
+    border-radius: 10px;
+    opacity: .85;
+    width: 95%;
+/*    margin-left: auto;
+    margin-right: auto;*/
+    margin: -40px auto;
+}
+.fanfic-name-link:hover {
+    transition: all 0.4s ease-out;
+/*    position:relative;*/
+    border-radius: 15px;
+    opacity: 1;
+    padding: 30px;
+    width: 100%;
+}
+
+
+.fanfic-name-link-a {
+        color: #CD5C5C;
+        text-decoration: underline;
+}
+.fanfic-name {
+    color: #CD5C5C;
+}
+
+.sort-fanfics {
+    border-radius: 5px;
+    background: #FFA07A;
+    padding: 20px;
+    height: 50px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*.sort-fanfics tr {
+    top: 60%; 
+}*/
+.white-link a{
+    color: white;
+}
+.likes-count, .comments-count {
+    border-radius: 5px;
+    margin-right: 5px;
+    width: 50px;
+    height: 45px;
+    padding: 10px;
+    /*    padding: 10px;*/
+/*    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);*/
+    display: inline-block;
+    margin-right: 3px;
+    margin-bottom:10px;
+}
+.comments-count {
+    background: #4682B4;
+}
+
+.comments-count p{ text-align: center; }
+.likes-count p{ text-align: center; }
+
+.likes-count {
+    background: #98FB98;
+}
+
+hr {
+    margin: 20px 0;
+    padding: 0;
+    height: 0;
+    border: none;
+    border-top: 2px dashed #DEB887;
+}
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+p {
+/*    color: #CD5C5C;*/
 }
 
 /* Provide sufficient contrast against white background */
@@ -51,7 +248,7 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
+/* Sticky footer style
 -------------------------------------------------- */
 html {
   position: relative;

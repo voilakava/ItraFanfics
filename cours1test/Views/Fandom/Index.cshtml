@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<cours1test.Models.Fandom> 
 
-<h2>Список Фандомов</h2>
+<h2 class="text-light">Список Фандомов</h2>
 
-<table class="table">
+<table class="table table-striped table-light">
     @foreach (var fandom in Model)
     {
     <tr>
-        <td> <input type="text" asp-for="@fandom.Titile" value="@fandom.Titile"/></td>
-        <td> <input type="text" asp-for="@fandom.Author" value="@fandom.Author" /></td>
-        <td>
+        <td> <a class="text-dark">@fandom.Titile</a></td>
+        <td> <a class="text-dark">@fandom.Author</a></td>
+        <!--<td>-->
             @*тут должна быть функция отобразить все фанфики*@ 
-                <a asp-controller="Fanfiction" asp-route-id="@fandom.ID" asp-action="Books" class="btn btn-sm">
+                <!--<a asp-controller="Fanfiction" asp-route-id="@fandom.ID" asp-action="Books" class="btn btn-sm">
                     Открыть список работ
                 </a> 
-        </td>
+        </td>-->
         <td>
             @*тут функция редактировать фандом*@
             @*<form asp-action="Edit"  asp-controller="" asp-route-id="@fandom.ID">
@@ -22,10 +22,7 @@
                 </button>
             </form>*@
         </td>
-        <td>
-            @*тут функция удалить фандом
-
-                Сделано *@
+        <td> 
             <form asp-action="Delete" asp-route-id="@fandom.ID" method="post">
                 <button type="submit" class="btn btn-sm btn-danger">
                     Удалить
@@ -35,4 +32,4 @@
     </tr>
     }
 </table>
-<a asp-action="Create">Добавить новый фандом</a> 
+<a class="text-light" asp-action="Create">Добавить новый фандом</a> 

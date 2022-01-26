@@ -2,7 +2,7 @@
 
  
 
-<h2>Добавить фанфик</h2>
+<h2 class="text-light">Добавить книгу</h2>
 
 <div id="PlaceHolderHere"></div>
  
@@ -10,23 +10,23 @@
 <form method="post" asp-controller="Fanfic" asp-action="Create">
 
     <div>
-        <label asp-for="Title">Название Фанфика</label><br />
+        <label class="text-light" asp-for="Title">Название книги</label><br />
         <input type="text" asp-for="Title" />
     </div>
     <div>
-        <label asp-for="Description">Краткое описание фанфика</label><br />
+        <label class="text-light" asp-for="Description">Краткое описание книги</label><br />
         <div class="mb-3">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+                @Html.TextAreaFor(model => model.Description, new { @class = "", @rows = 10 })
         </div>
     </div>
 
 
     <div class="form-group">
-        <label class="control-label col-md-2">
+        <label class="text-light" class="control-label">
             Выберите фандом:
         </label>
 
-        <div class="col-md-10" asp-for="Fandom"> 
+        <div class="fandom-input" asp-for="Fandom"> 
             @Html.DropDownListFor(model => model.FandomName, (IEnumerable<SelectListItem>)ViewBag.Fandom, new { htmlAttributes = new { @class = "form-control" } })
     
          </div>
